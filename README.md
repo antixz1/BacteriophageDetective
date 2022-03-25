@@ -9,7 +9,7 @@ Bacteriophages are viruses that infect Bacteria and Archaea. Phages can survive 
 # Installation/Dependencies
 
 ## Docker
-Docker is a free and open platform for developing, deploying, and running software. Docker isolates your applications from your infrastructure, allowing you to deliver software quickly. On this platform, you can manage your infrastructure the same way you manage your applications   Docker lets you package and run an application within a container, which is a loosely isolated environment.
+Docker is a free and open platform for developing, deploying, and running software. Docker isolates your applications from your infrastructure, allowing you to deliver software quickly. On this platform, you can manage your infrastructure the same way you manage your applications. Docker lets you package and run an application within a container, which is a loosely isolated environment.
 
 
 ## Phigaro
