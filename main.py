@@ -32,10 +32,10 @@ def grab_datasets():
 grab_datasets()
 
 #assuming Phigaro and docker are installed
-def runPhigaro():
-    os.chdir(os.path.expanduser("~"))
-    runPhigaro_command = 'sudo docker run -it --name phigaro_tool phigaro'
-    os.system(runPhigaro_command)
+#def runPhigaro():
+#    os.chdir(os.path.expanduser("~"))
+#    runPhigaro_command = 'sudo docker run -it --name phigaro_tool phigaro'
+#    os.system(runPhigaro_command)
 
-runPhigaro()
+#runPhigaro()
 
