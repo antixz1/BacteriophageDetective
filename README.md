@@ -15,7 +15,7 @@ This Docker container contains all required dependencies for this pipeline, as w
 
 To build the docker image, first clone the repository using
 ```
-git clone https://github.com/antixz1/BacteriophageDetective
+git clone https://github.com/antixz1/ProphageDetective
 ```
 
 Next, build the image using
