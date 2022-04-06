@@ -31,3 +31,6 @@ NCBI Datasets is a new resource that makes it simple to obtain information from 
 
 ## Phigaro
 Phigaro is a command-line tool that uses raw genome and metagenome assemblies as input to detect prophage areas. It also generates annotated 'prophage genome maps' and highlights potential transposon insertion sites inside prophages. It may be used to search for prophage areas in huge metagenomic datasets.
+
+#Running the Pipeline
+
