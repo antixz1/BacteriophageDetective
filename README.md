@@ -1,10 +1,10 @@
-# BacteriophageDetective
+# ProphageDetective
 
 # Introduction
 This is a Linux-based python wrapper for a pipeline that takes in a collection of bacterial genomes to identify any prophages. The prophages are then annotated and analyzed.
 
-## What are Bacteriophages?
-Bacteriophages are viruses that infect Bacteria and Archaea. Phages can survive by integrating into the genome of their bacterial host throughout the lytic or lysogenic cycles. The majority of microorganisms carry phages. In our bodies, there are more phages than human or bacterial cells combined.
+## What are Phages?
+Phages are viruses that infect Bacteria and Archaea. Phages can survive by integrating into the genome of their bacterial host throughout the lytic or lysogenic cycles. The majority of microorganisms carry phages. In our bodies, there are more phages than human or bacterial cells combined. Prophages follow the lysogenic path, integrating their DNA within bacterial DNA in a dormant state.
 
 # Installation/Dependencies
 
@@ -20,7 +20,7 @@ git clone https://github.com/antixz1/BacteriophageDetective
 
 Next, build the image using
 ```
-sudo docker build BacteriophageDetective --tag phagedetective:latest
+sudo docker build ProphageDetective --tag prophagedetective:latest
 ```
 
 
