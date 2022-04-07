@@ -31,11 +31,17 @@ def grab_datasets():
 
 grab_datasets()
 
-#assuming Phigaro and docker are installed
-#def runPhigaro():
-#    os.chdir(os.path.expanduser("~"))
-#    runPhigaro_command = 'sudo docker run -it --name phigaro_tool phigaro'
-#    os.system(runPhigaro_command)
 
-#runPhigaro()
+#Run downloaded assemblies through Phigaro
+def runPhigaro():
+    os.chdir(os.path.expanduser("~"))
+
+    #Run genome assemblies through Phigaro to identify prophages
+    print('Running Phigaro with Genome Sequences')
+
+    os.system('phigaro -f results/ncbi_dataset/data/all_sequences/assemblies.fna -o results/phigaro_output -p -e tsv gff html -d --not-open --save-fasta')
+
+    print('Finished!')
+
+runPhigaro()
 
