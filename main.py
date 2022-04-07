@@ -40,8 +40,9 @@ def runPhigaro():
     print('Running Phigaro with Genome Sequences')
 
     os.system('phigaro -f results/ncbi_dataset/data/all_sequences/assemblies.fna -o results/phigaro_output -p -e tsv gff html -d --not-open --save-fasta')
-
     print('Finished!')
-
+    
 runPhigaro()
+
+
 
