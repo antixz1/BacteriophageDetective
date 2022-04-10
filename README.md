@@ -23,6 +23,17 @@ Next, build the image using
 sudo docker build ProphageDetective --tag prophagedetective:latest
 ```
 
+Finally, create a Docker container with the prophagedetective image using
+```
+sudo docker create -it --name [container name] prophagedetective
+sudo docker start -i [container name]
+```
+or start the interactive session automatically using
+```
+sudo docker run -it --name [container name] prophagedetective
+```
+where 'container name' is any user-given name.
+
 
 ## NCBI Datasets
 The National Center for Biotechnology Information is a division of the National Institutes of Health's National Library of Medicine. The United States government has approved and sponsored it. The National Center for Biotechnology Information (NCBI) holds a number of databases pertinent to biotechnology and biomedicine, as well as bioinformatics tools and services. It includes the GenBank nucleic acid sequence database and the PubMed database of citations and abstracts for published life science journals, among other online resources for biological knowledge and data.
@@ -32,5 +43,13 @@ NCBI Datasets is a new resource that makes it simple to obtain information from 
 ## Phigaro
 Phigaro is a command-line tool that uses raw genome and metagenome assemblies as input to detect prophage areas. It also generates annotated 'prophage genome maps' and highlights potential transposon insertion sites inside prophages. It may be used to search for prophage areas in huge metagenomic datasets.
 
-# Running the Pipeline
-
+# Pipeline Usage
+## Using NCBI Assemblies
+The pipeline can download and run assemblies automatically with user-provided accession IDs. The accessions.txt file in the 'accessions' folder should be edited to contain any number of accessions, separated by spaces, in order to run successfully. Bioproject accessions can also be used to download entire bioproject assemblies.
+## Using fasta/fna Files
+The pipeline also accepts fasta/fna files as opposed to NCBI assembly accessions. **The accessions.txt file must be empty for the pipeline to run with user-input fasta/fna files.** 
+Files can be copied to the Docker container using
+```
+sudo docker cp [file path] [container name]:/root/accessions
+```
+## Running the Pipeline
