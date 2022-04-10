@@ -1,4 +1,5 @@
 import os
+import glob
 
 def grab_datasets():
     #Change directory to home directory
@@ -29,7 +30,20 @@ def grab_datasets():
     os.chdir('all_sequences')
     os.system('cat *.fna > assemblies.fna')
 
-grab_datasets()
+
+#Check for user-input accessions in accessions.txt or for user-input-fasta/fna files in accessions directory
+with open('accessions/accessions.txt','r') as f_in:
+    accession = f_in.read().strip()
+if accession:
+    grab_datasets()
+else:
+    if glob.glob('accessions/*.fasta') or glob.glob('accessions/*.fna'):
+        os.chdir('results')
+        os.mkdir('input')
+        os.chdir(os.path.expanduser("~"))
+        os.system('cp accessions/*f*a results/input/')
+    else:
+        print('Error: User input not found. Please palce desired accessions in "accessions.txt" or place a fasta/fna file in the "accessions" directory.')
 
 
 #Run downloaded assemblies through Phigaro
