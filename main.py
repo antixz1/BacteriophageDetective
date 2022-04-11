@@ -48,15 +48,18 @@ else:
 
 #Run downloaded assemblies through Phigaro
 def runPhigaro():
-    os.chdir(os.path.expanduser("~"))
-
-    #Run genome assemblies through Phigaro to identify prophages
-    print('Running Phigaro with Genome Sequences')
-
-    os.system('phigaro -f results/ncbi_dataset/data/all_sequences/assemblies.fna -o results/phigaro_output -p -e tsv gff html -d --not-open --save-fasta')
-    print('Finished!')
     
-runPhigaro()
+        os.chdir(os.path.expanduser("~"))
+    #Run genome assemblies through Phigaro to identify prophages
+    if glob.glob('results/input/*f*a'):
+        print('Running Phigaro')
+        os.system('phigaro -f '+glob.glob('results/input/*f*a')[0]+' -o results/phigaro_output -p -e tsv gff html -d --not-open --save-fasta')
+    elif glob.glob('results/ncbi_dataset/data/all_sequences/assemblies.fna'):
+         print('Running Phigaro')
+         os.system('phigaro -f results/ncbi_dataset/data/all_sequences/assemblies.fna -o results/phigaro_output -p -e tsv gff html -d --not-open --save-fasta')
+    else:
+        print('Input files not found in results/input or in results/ncbi_dataset.')
 
+   
 
 
