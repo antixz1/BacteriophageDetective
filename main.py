@@ -65,7 +65,7 @@ def runPhigaro():
         print('Phigaro run has failed.')
 runPhigaro()
 
-def align_prophage
+def align_prophage():
     os.chdir(os.path.expanduser("~"))
     os.system('makeblastdb -in results/phigaro_output/*.phigaro.fasta -dbtype nucl -out results/phigaroblastdb/phigarodb')
     os.system('blastn -query results/phigaro_output/*.phigaro.fasta -db results/phigaroblastdb/phigarodb -out results/bpalign.csv -outfmt "10 qseqid sseqid pident qcovhsp" -max_hsps 1')
@@ -85,10 +85,9 @@ def align_prophage
                 parsed_alignments.append(a)
     
     header = ['qseqid','sseqid','pident','qcovhsp']
-        with open('reseults/bpalign.csv','w') as b_out:
-            writer = csv.writer(b_out)
-            writer.writerow(header)
-            writer.writerows(parsed_alignments)
+    with open('reseults/bpalign.csv','w') as b_out:
+        writer = csv.writer(b_out)
+        writer.writerow(header)
+        writer.writerows(parsed_alignments)
 
-    
-   
+align_prophage()   
