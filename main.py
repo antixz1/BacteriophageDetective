@@ -63,7 +63,6 @@ def runPhigaro():
         print('Phigaro has finished running.')
     else:
         print('Phigaro run has failed.')
-
-   
+runPhigaro()        
 
 
