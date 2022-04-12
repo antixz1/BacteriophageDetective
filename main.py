@@ -1,5 +1,7 @@
 import os
 import glob
+import csv
+
 
 def grab_datasets():
     #Change directory to home directory
@@ -66,23 +68,22 @@ def runPhigaro():
 runPhigaro()
 
 def align_prophage():
-    os.chdir(os.path.expanduser("~"))
-    os.system('makeblastdb -in results/phigaro_output/*.phigaro.fasta -dbtype nucl -out results/phigaroblastdb/phigarodb')
-    os.system('blastn -query results/phigaro_output/*.phigaro.fasta -db results/phigaroblastdb/phigarodb -out results/bpalign.csv -outfmt "10 qseqid sseqid pident qcovhsp" -max_hsps 1')
+    os.chdir(os.path.expanduser("~"))
+    os.system('makeblastdb -in results/phigaro_output/*.phigaro.fasta -dbtype nucl -out results/phigaroblastdb/phigarodb')
+    os.system('blastn -query results/phigaro_output/*.phigaro.fasta -db results/phigaroblastdb/phigarodb -out results/bpalign.csv -outfmt "10 qseqid sseqid pident qcovhsp" -max_hsps 1')
 
     with open('results/bpalign.csv','r') as b_in:
         reader = csv.reader(b_in)
         alignments = []
-    
         for row in reader: 
             alignments.append(row)
     
-        qcov_threshold = 75 #can be altered.
-        parsed_alignments = []
+    qcov_threshold = 75 #can be altered.
+    parsed_alignments = []
     
-        for a in alignments:
-            if a[0] != a[1] and int(a[3]) > qcovthreshold:
-                parsed_alignments.append(a)
+    for a in alignments:
+        if a[0] != a[1] and int(a[3]) > qcovthreshold:
+            parsed_alignments.append(a)
     
     header = ['qseqid','sseqid','pident','qcovhsp']
     with open('reseults/bpalign.csv','w') as b_out:
