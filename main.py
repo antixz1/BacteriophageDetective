@@ -82,13 +82,46 @@ def align_prophage():
     parsed_alignments = []
     
     for a in alignments:
-        if a[0] != a[1] and int(a[3]) > qcovthreshold:
+        if a[0] != a[1] and int(a[3]) > qcov_threshold:
             parsed_alignments.append(a)
     
     header = ['qseqid','sseqid','pident','qcovhsp']
-    with open('reseults/bpalign.csv','w') as b_out:
+    with open('results/bpalign.csv','w') as b_out:
         writer = csv.writer(b_out)
         writer.writerow(header)
         writer.writerows(parsed_alignments)
 
-align_prophage()   
+align_prophage()
+
+VOG_dict = {}
+Phigaro_dict = {}
+Final_dict = {}
+Final_dict_values = list()
+
+def VOG_identifier(infile1, infile2):
+    with open(infile1, mode ='r') as inp:
+        reader = csv.reader(inp, delimiter = "\t")
+        VOG_dict = {rows[0]:rows[6] for rows in reader}
+
+    with open(infile2, mode = 'r') as inp:
+        reader = csv.reader(inp, delimiter = "\t")
+        Phigaro_dict = {rows[0]:rows[5] for rows in reader}
+        for key, value in Phigaro_dict.items():
+            value = list(value.split(", "))
+            Phigaro_dict[key] = value
+
+    del Phigaro_dict["scaffold"]
+
+    for key, value in Phigaro_dict.items():
+        for vog in value:
+            if vog not in VOG_dict.keys():
+                Final_dict_values.append(vog + " not annotated")
+            else:
+                Final_dict_values.append( vog + ": " + VOG_dict[vog])
+        Final_dict[key] = Final_dict_values
+
+    for key, value in Final_dict.items():
+        print(key)
+        print(value)
+
+VOG_identifier('VOGTable.tsv', os.path.expanduser('~/results/assemblies.phigaro.tsv'))
