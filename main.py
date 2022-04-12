@@ -7,14 +7,11 @@ os.chdir(os.path.expanduser("~"))
 os.mkdir('results')
 ###########################################################################################################################################################################################
 def grab_datasets():
-    #Change directory to home directory
-    os.chdir(os.path.expanduser("~"))
-
     #accessions.txt must be in your home directory with your desired genome accession numbers or bioproject accession numbers
     os.chdir(os.path.expanduser("~/results"))
 
     #Download genome seqeuences of given accession numbers
-    data_set_command = 'datasets download genome accession --inputfile accessions.txt --filename ncbi_datasets.zip --exclude-genomic-cds --exclude-gff3 --exclude-protein --exclude-rna'
+    data_set_command = 'datasets download genome accession --inputfile /root/accessions/accessions.txt --filename ncbi_datasets.zip --exclude-genomic-cds --exclude-gff3 --exclude-protein --exclude-rna'
     os.system(data_set_command)
     os.system('unzip ncbi_datasets.zip')
     os.chdir('ncbi_dataset/data')
