@@ -4,5 +4,5 @@ RUN bin/bash -c "/root/miniconda3/bin/conda install -c conda-forge ncbi-datasets
 RUN bin/bash -c "/root/miniconda3/bin/conda install -c bioconda blast --yes"
 RUN apt-get update && apt-get install -y unzip vim
 RUN mkdir /root/accessions && touch /root/accessions/accessions.txt
+ADD VOGTable.tsv /root/
 ADD main.py /root/
-
