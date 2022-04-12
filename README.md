@@ -44,7 +44,7 @@ NCBI Datasets is a new resource that makes it simple to obtain information from 
 Phigaro is a command-line tool that uses raw genome and metagenome assemblies as input to detect prophage areas. It also generates annotated 'prophage genome maps' and highlights potential transposon insertion sites inside prophages. It may be used to search for prophage areas in huge metagenomic datasets.
 
 ## VOG Table
-VOGTable.tsv is a tab delimited value file dettailing the functional attributes for each pVOG along with additional information. This file is included within the installation package and will be placed into one's home/working directory. This file allows the pipeline to identify the functional attributes present to each accession as identified by Phigaro. 
+VOGTable.tsv is a tab delimited value file detailing the functional attributes for each pVOG along with additional information. This file is included within the installation package and will be placed into one's home/working directory. This file allows the pipeline to identify the functional attributes present to each accession as identified by Phigaro. 
 
 # Pipeline Usage
 ## Using NCBI Assemblies
