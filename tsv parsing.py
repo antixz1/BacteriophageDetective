@@ -7,13 +7,13 @@ df = pd.read_csv('/Users/rmansoor/Downloads/parsed_assemblies.phigaro.tsv', sep=
 var = df.scaffold.unique()
     
 mydict = {} #dictionary to count occurrences
-#loop over wordlist
+#loop over scaffolds
 for i in var:
     i = i[:9]
-    #test if word is already in dict, if so add to count
+    #test if scaffold is already in dict, if so add to count
     if i in mydict:
         mydict[i] = mydict[i] + 1
-    #otherwise add word to dictionary with count 1
+    #otherwise add scaffold to dictionary with count 1
     else:
         mydict[i] = 1
 
