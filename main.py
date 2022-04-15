@@ -67,7 +67,7 @@ runPhigaro()
 
 df = pd.read_csv('/Users/rmansoor/Downloads/parsed_assemblies.phigaro.tsv', sep='\t', usecols = ['scaffold','vog'])
 outfile = open('Parsed_tsv.csv','w') # creating a new csv file
-outfile.write("Scaffold," + "Number of Scaffolds," + "\n")
+outfile.write("Scaffold," + "Number of Scaffolds" + "\n")
 var = df.scaffold.unique()
     
 mydict = {} #dictionary to count occurrences
@@ -84,7 +84,7 @@ for i in var:
 for k, v in mydict.items():
     #print(str(k) + ' ' + str(v) + '\n')
     
-    outfile.write(str(k)+ ',' +str(v)+ ',' +"\n")
+    outfile.write(str(k)+'000000000,' +str(v) + "\n")
 outfile.close()
 ########################################################################################################################################################################
 def align_prophage():
