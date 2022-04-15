@@ -67,7 +67,7 @@ runPhigaro()
 
 df = pd.read_csv('/Users/rmansoor/Downloads/parsed_assemblies.phigaro.tsv', sep='\t', usecols = ['scaffold','vog'])
 outfile = open('Parsed_tsv.csv','w') # creating a new csv file
-outfile.write("Scaffold," + "Number of Scaffolds" + "\n")
+outfile.write("WGS," + "#Prophages" + "\n")
 var = df.scaffold.unique()
     
 mydict = {} #dictionary to count occurrences
