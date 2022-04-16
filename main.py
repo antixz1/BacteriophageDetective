@@ -64,28 +64,27 @@ def runPhigaro():
         
 runPhigaro()
 ###########################################################################################################################################################################################
+def prophage_count():
+    df = pd.read_csv(os.path.expanduser('~/results/phigaro_output/*.phigaro.tsv'), sep='\t', usecols = ['scaffold','vog'])
+    outfile = open('Prophage_count.csv','w') # creating a new csv file
+    outfile.write("WGS,#Prophages\n")
+    var = df.scaffold.unique()
 
-df = pd.read_csv('/Users/rmansoor/Downloads/parsed_assemblies.phigaro.tsv', sep='\t', usecols = ['scaffold','vog'])
-outfile = open('Parsed_tsv.csv','w') # creating a new csv file
-outfile.write("WGS," + "#Prophages" + "\n")
-var = df.scaffold.unique()
-    
-mydict = {} #dictionary to count occurrences
-#loop over wordlist
-for i in var:
-    i = i[:9]
-    #test if word is already in dict, if so add to count
-    if i in mydict:
-        mydict[i] = mydict[i] + 1
-    #otherwise add word to dictionary with count 1
-    else:
-        mydict[i] = 1
+    mydict = {} #dictionary to count occurrences
+    #loop over wordlist
+    for i in var:
+        i = i[:9]
+        #test if word is already in dict, if so add to count
+        if i in mydict:
+            mydict[i] = mydict[i] + 1
+        #otherwise add word to dictionary with count 1
+        else:
+            mydict[i] = 1
 
-for k, v in mydict.items():
-    #print(str(k) + ' ' + str(v) + '\n')
-    
-    outfile.write(str(k)+'000000000,' +str(v) + "\n")
-outfile.close()
+    for k, v in mydict.items():
+        outfile.write(str(k)+'000000000,' +str(v) + "\n")
+    outfile.close()
+prophage_count()
 ########################################################################################################################################################################
 def align_prophage():
     os.chdir(os.path.expanduser("~"))
@@ -114,12 +113,8 @@ def align_prophage():
 align_prophage()
 ###########################################################################################################################################################################################
 
-VOG_dict = {}
-Phigaro_dict = {}
-Final_dict = {}
-Final_dict_values = list()
-
 def VOG_identifier(infile1, infile2):
+    Final_dict = {}
     with open(infile1, mode ='r') as inp:
         reader = csv.reader(inp, delimiter = "\t")
         VOG_dict = {rows[0]:rows[6] for rows in reader}
@@ -134,6 +129,7 @@ def VOG_identifier(infile1, infile2):
     del Phigaro_dict["scaffold"]
 
     for key, value in Phigaro_dict.items():
+        Final_dict_values = list()
         for vog in value:
             if vog not in VOG_dict.keys():
                 Final_dict_values.append(vog + " not annotated")
@@ -142,8 +138,6 @@ def VOG_identifier(infile1, infile2):
         Final_dict[key] = Final_dict_values
 
     for key, value in Final_dict.items():
-        print(key)
-        print(value)
 
 VOG_identifier('VOGTable.tsv', os.path.expanduser('~/results/phigaro_output/*.phigaro.tsv'))
 ###########################################################################################################################################################################################
