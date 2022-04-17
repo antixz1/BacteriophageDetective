@@ -3,9 +3,12 @@ import glob
 import csv
 import pandas
 
-
+#Create results directory in root directory of docker container
 os.chdir(os.path.expanduser("~"))
 os.mkdir('results')
+
+
+#Define Functions
 ###########################################################################################################################################################################################
 def grab_datasets():
     #accessions.txt must be in your home directory with your desired genome accession numbers or bioproject accession numbers
@@ -27,20 +30,20 @@ def grab_datasets():
     os.chdir('all_sequences')
     os.system('cat *.fna > assemblies.fna')
 ###########################################################################################################################################################################################
-
-#Check for user-input accessions in accessions.txt or for user-input-fasta/fna files in accessions directory
-with open('accessions/accessions.txt','r') as f_in:
-    accession = f_in.read().strip()
-if accession:
-    grab_datasets()
-else:
-    if glob.glob('accessions/*.fasta') or glob.glob('accessions/*.fna'):
-        os.chdir('results')
-        os.mkdir('input')
-        os.chdir(os.path.expanduser("~"))
-        os.system('cp accessions/*f*a results/input/')
+def input_check()
+    #Check for user-input accessions in accessions.txt or for user-input-fasta/fna files in accessions directory
+    with open('accessions/accessions.txt','r') as f_in:
+        accession = f_in.read().strip()
+    if accession:
+        grab_datasets()
     else:
-        print('Error: User input not found. Please palce desired accessions in "accessions.txt" or place a fasta/fna file in the "accessions" directory.')
+        if glob.glob('accessions/*.fasta') or glob.glob('accessions/*.fna'):
+            os.chdir('results')
+            os.mkdir('input')
+            os.chdir(os.path.expanduser("~"))
+            os.system('cp accessions/*f*a results/input/')
+        else:
+            print('Error: User input not found. Please palce desired accessions in "accessions.txt" or place a fasta/fna file in the "accessions" directory.')
 ###########################################################################################################################################################################################
 
 #Run downloaded assemblies through Phigaro
@@ -61,8 +64,7 @@ def runPhigaro():
         print('Phigaro has finished running.')
     else:
         print('Phigaro run has failed.')
-        
-runPhigaro()
+
 ###########################################################################################################################################################################################
 def prophage_count():
     df = pd.read_csv(os.path.expanduser('~/results/phigaro_output/*.phigaro.tsv'), sep='\t', usecols = ['scaffold','vog'])
@@ -84,7 +86,7 @@ def prophage_count():
     for k, v in mydict.items():
         outfile.write(str(k)+'000000000,' +str(v) + "\n")
     outfile.close()
-prophage_count()
+
 ########################################################################################################################################################################
 def align_prophage():
     os.chdir(os.path.expanduser("~"))
@@ -110,10 +112,10 @@ def align_prophage():
         writer.writerow(header)
         writer.writerows(parsed_alignments)
 
-align_prophage()
+
 ###########################################################################################################################################################################################
 
-def VOG_identifier(infile1, infile2):
+def VOG_annotator(infile1, infile2):
     Final_dict = {}
     with open(infile1, mode ='r') as inp:
         reader = csv.reader(inp, delimiter = "\t")
@@ -137,7 +139,14 @@ def VOG_identifier(infile1, infile2):
                 Final_dict_values.append( vog + ": " + VOG_dict[vog])
         Final_dict[key] = Final_dict_values
 
-    for key, value in Final_dict.items():
+    with open('VOGAnnotations.tsv','w') as out:
+        #Write to output file
 
-VOG_identifier('VOGTable.tsv', os.path.expanduser('~/results/phigaro_output/*.phigaro.tsv'))
 ###########################################################################################################################################################################################
+
+#Call functions for pipeline
+input_check()
+runPhigaro()
+prophage_count()
+align_prophage()
+VOG_annotator('VOGTable.tsv', os.path.expanduser('~/results/phigaro_output/*.phigaro.tsv'))
