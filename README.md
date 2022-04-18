@@ -56,3 +56,8 @@ Files can be copied to the Docker container using
 sudo docker cp [file path] [container name]:/root/accessions
 ```
 ## Running the Pipeline
+
+
+## Limitations
+- Phigaro tosses out contigs that are less than 20,000 bp long
+- The VOG annotation database is a work in progress and may not provide annotations for all pVOGs found by Phigaro
