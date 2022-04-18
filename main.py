@@ -67,8 +67,8 @@ def runPhigaro():
 
 ###########################################################################################################################################################################################
 def prophage_count():
-    df = pd.read_csv(os.path.expanduser('~/results/phigaro_output/*.phigaro.tsv'), sep='\t', usecols = ['scaffold','vog'])
-    outfile = open('Prophage_count.csv','w') # creating a new csv file
+    df = pd.read_csv(glob.glob('/root/results/phigaro_output/*.phigaro.tsv')[0], sep='\t', usecols = ['scaffold','vog'])
+    outfile = open('results/Prophage_count.csv','w') # creating a new csv file
     outfile.write("WGS,#Prophages\n")
     var = df.scaffold.unique()
 
@@ -139,7 +139,7 @@ def VOG_annotator(infile1, infile2):
                 Final_dict_values.append( vog + ": " + VOG_dict[vog])
         Final_dict[key] = Final_dict_values
 
-    with open('VOGAnnotations.tsv','w') as out:
+    with open('results/VOGAnnotations.tsv','w') as out:
         for key, value in Final_dict.items():
             out.write(key + "\t")
             for vog in value:
@@ -153,4 +153,4 @@ input_check()
 runPhigaro()
 prophage_count()
 align_prophage()
-VOG_annotator('VOGTable.tsv', os.path.expanduser('~/results/phigaro_output/*.phigaro.tsv'))
+VOG_annotator('VOGTable.tsv', glob.glob('/root/results/phigaro_output/*.phigaro.tsv')[0])
