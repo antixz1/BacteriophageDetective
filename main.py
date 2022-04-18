@@ -1,7 +1,7 @@
 import os
 import glob
 import csv
-import pandas
+import pandas as pd
 
 #Create results directory in root directory of docker container
 os.chdir(os.path.expanduser("~"))
@@ -30,7 +30,7 @@ def grab_datasets():
     os.chdir('all_sequences')
     os.system('cat *.fna > assemblies.fna')
 ###########################################################################################################################################################################################
-def input_check()
+def input_check():
     #Check for user-input accessions in accessions.txt or for user-input-fasta/fna files in accessions directory
     with open('accessions/accessions.txt','r') as f_in:
         accession = f_in.read().strip()
@@ -140,7 +140,11 @@ def VOG_annotator(infile1, infile2):
         Final_dict[key] = Final_dict_values
 
     with open('VOGAnnotations.tsv','w') as out:
-        #Write to output file
+        for key, value in Final_dict.items():
+            out.write(key + "\t")
+            for vog in value:
+                out.write(vog + "\t")
+            out.write("\n")
 
 ###########################################################################################################################################################################################
 
