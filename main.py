@@ -10,6 +10,7 @@ os.mkdir('results')
 
 #Define Functions
 ###########################################################################################################################################################################################
+#Grab genome assemblies from NCBI with user-input accessions
 def grab_datasets():
     #accessions.txt must be in your home directory with your desired genome accession numbers or bioproject accession numbers
     os.chdir(os.path.expanduser("~/results"))
@@ -29,14 +30,16 @@ def grab_datasets():
     #Concatenate all sequences into one fna file
     os.chdir('all_sequences')
     os.system('cat *.fna > assemblies.fna')
+    
 ###########################################################################################################################################################################################
+#Check for accessions or user-input genomes
 def input_check():
     #Check for user-input accessions in accessions.txt or for user-input-fasta/fna files in accessions directory
     with open('accessions/accessions.txt','r') as f_in:
         accession = f_in.read().strip()
-    if accession:
+    if accession: #Grab assemblies using NCBI dataset if accessions are present in accessions.txt
         grab_datasets()
-    else:
+    else: #If accessions aren't present in accessions.txt, move any user-input fasta/fna files to the results directory for Phigaro to use
         if glob.glob('accessions/*.fasta') or glob.glob('accessions/*.fna'):
             os.chdir('results')
             os.mkdir('input')
@@ -44,14 +47,17 @@ def input_check():
             os.system('cp accessions/*f*a results/input/')
         else:
             print('Error: User input not found. Please palce desired accessions in "accessions.txt" or place a fasta/fna file in the "accessions" directory.')
+         
 ###########################################################################################################################################################################################
 
-#Run downloaded assemblies through Phigaro
+#Run downloaded assemblies through Phigaro to identify and annotate prophages
 def runPhigaro():
     mode = 'basic' #'abs' and 'without_gc' other usable modes
+    
     os.chdir(os.path.expanduser("~"))
     #Run genome assemblies through Phigaro to identify prophages
-    if glob.glob('results/input/*f*a'):
+    #Run with user-input files or with ncbi dataset files depending on which files are present
+    if glob.glob('results/input/*f*a'): 
         print('Running Phigaro')
         os.system('phigaro -f '+glob.glob('results/input/*f*a')[0]+' -o results/phigaro_output -p -e tsv gff html -d --not-open --save-fasta -m '+mode)
     elif glob.glob('results/ncbi_dataset/data/all_sequences/assemblies.fna'):
@@ -59,13 +65,15 @@ def runPhigaro():
         os.system('phigaro -f results/ncbi_dataset/data/all_sequences/assemblies.fna -o results/phigaro_output -p -e tsv gff html -d --not-open --save-fasta -m '+mode)
     else:
         print('Input files not found in results/input or in results/ncbi_dataset.')
-
+    
+    #Determine if Phigaro was successful in running
     if glob.glob('results/phigaro_output/*.phigaro*'):
         print('Phigaro has finished running.')
     else:
         print('Phigaro run has failed.')
 
 ###########################################################################################################################################################################################
+#Count # prophages based on genome
 def prophage_count():
     df = pd.read_csv(glob.glob('/root/results/phigaro_output/*.phigaro.tsv')[0], sep='\t', usecols = ['scaffold','vog'])
     outfile = open('results/Prophage_count.csv','w') # creating a new csv file
@@ -88,6 +96,7 @@ def prophage_count():
     outfile.close()
 
 ########################################################################################################################################################################
+#Determine prophage similarity among different bacterial genomes
 def align_prophage():
     os.chdir(os.path.expanduser("~"))
     os.system('makeblastdb -in results/phigaro_output/*.phigaro.fasta -dbtype nucl -out results/phigaroblastdb/phigarodb')
@@ -114,7 +123,7 @@ def align_prophage():
 
 
 ###########################################################################################################################################################################################
-
+#Add VOG annotation (from database) to pVOGs found by Phigaro
 def VOG_annotator(infile1, infile2):
     Final_dict = {}
     with open(infile1, mode ='r') as inp:
