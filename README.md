@@ -47,16 +47,34 @@ Phigaro is a command-line tool that uses raw genome and metagenome assemblies as
 VOGTable.tsv is a tab delimited value file detailing the functional attributes for each pVOG along with additional information. This file is included within the installation package and will be placed into one's home/working directory. This file allows the pipeline to identify the functional attributes present to each accession as identified by Phigaro. 
 
 # Pipeline Usage
-## Using NCBI Assemblies
+## Input
+### Using NCBI Assemblies
 The pipeline can download and run assemblies automatically with user-provided accession IDs. The accessions.txt file in the 'accessions' folder should be edited to contain any number of accessions, separated by spaces, in order to run successfully. Bioproject accessions can also be used to download entire bioproject assemblies.
-## Using fasta/fna Files
+### Using fasta/fna Files
 The pipeline also accepts fasta/fna files as opposed to NCBI assembly accessions. **The accessions.txt file must be empty for the pipeline to run with user-input fasta/fna files.** 
 Files can be copied to the Docker container using
 ```
 sudo docker cp [file path] [container name]:/root/accessions
 ```
-## Running the Pipeline
 
+## Output
+All output can be found in the results directory:
+
+phigaro.fasta: Contains sequences for all identified prophages in fasta format
+
+phigaro.tsv: Contains prophage coordinates within their respective scaffolds, transposability, taxonomy, and all detected VOGs
+
+phigaro.gff3: Contains prophage coordinates within their respective scaffolds, as well as gene information for each prophage
+
+phigaro.html: Interactive webpage to visualize prophages and their gene content
+
+bpalign.csv: Contains BLASTn results determining prophage similarity among different scaffolds
+
+VOGAnnotations.tsv: Contains annotated VOGs by scaffold
+
+Prophage_count.csv: Contains the number of prophages identified in each bacterial genome
+
+## Running the Pipeline
 
 ## Limitations
 - Phigaro tosses out contigs that are less than 20,000 bp long
