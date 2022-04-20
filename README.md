@@ -60,19 +60,19 @@ sudo docker cp [file path] [container name]:/root/accessions
 ## Output
 All output can be found in the results directory:
 
-phigaro.fasta: Contains sequences for all identified prophages in fasta format
+***phigaro.fasta:*** Contains sequences for all identified prophages in fasta format
 
-phigaro.tsv: Contains prophage coordinates within their respective scaffolds, transposability, taxonomy, and all detected VOGs
+***phigaro.tsv:*** Contains prophage coordinates within their respective scaffolds, transposability, taxonomy, and all detected VOGs
 
-phigaro.gff3: Contains prophage coordinates within their respective scaffolds, as well as gene information for each prophage
+***phigaro.gff3:*** Contains prophage coordinates within their respective scaffolds, as well as gene information for each prophage
 
-phigaro.html: Interactive webpage to visualize prophages and their gene content
+***phigaro.html:*** Interactive webpage to visualize prophages and their gene content
 
-bpalign.csv: Contains BLASTn results determining prophage similarity among different scaffolds
+***bpalign.csv:*** Contains BLASTn results determining prophage similarity among different scaffolds
 
-VOGAnnotations.tsv: Contains annotated VOGs by scaffold
+***VOGAnnotations.tsv:*** Contains annotated VOGs by scaffold
 
-Prophage_count.csv: Contains the number of prophages identified in each bacterial genome
+***Prophage_count.csv:*** Contains the number of prophages identified in each bacterial genome
 
 ## Running the Pipeline
 
