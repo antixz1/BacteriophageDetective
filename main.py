@@ -16,7 +16,7 @@ def grab_datasets():
     os.chdir(os.path.expanduser("~/results"))
 
     #Download genome seqeuences of given accession numbers
-    data_set_command = 'datasets download genome accession --inputfile /root/accessions/accessions.txt --filename ncbi_datasets.zip --exclude-genomic-cds --exclude-gff3 --exclude-protein --exclude-rna'
+    data_set_command = 'datasets download genome accession --inputfile /root/input/accessions.txt --filename ncbi_datasets.zip --exclude-genomic-cds --exclude-gff3 --exclude-protein --exclude-rna'
     os.system(data_set_command)
     os.system('unzip ncbi_datasets.zip')
     os.chdir('ncbi_dataset/data')
@@ -35,18 +35,18 @@ def grab_datasets():
 #Check for accessions or user-input genomes
 def input_check():
     #Check for user-input accessions in accessions.txt or for user-input-fasta/fna files in accessions directory
-    with open('accessions/accessions.txt','r') as f_in:
+    with open('input/accessions.txt','r') as f_in:
         accession = f_in.read().strip()
     if accession: #Grab assemblies using NCBI dataset if accessions are present in accessions.txt
         grab_datasets()
     else: #If accessions aren't present in accessions.txt, move any user-input fasta/fna files to the results directory for Phigaro to use
-        if glob.glob('accessions/*.fasta') or glob.glob('accessions/*.fna'):
+        if glob.glob('input/*.fasta') or glob.glob('input/*.fna'):
             os.chdir('results')
-            os.mkdir('input')
+            os.mkdir('inputfile')
             os.chdir(os.path.expanduser("~"))
-            os.system('cp accessions/*f*a results/input/')
+            os.system('cp input/*f*a results/inputfile/')
         else:
-            print('Error: User input not found. Please palce desired accessions in "accessions.txt" or place a fasta/fna file in the "accessions" directory.')
+            print('Error: User input not found. Please palce desired accessions in "accessions.txt" or place a fasta/fna file in the "input" directory.')
          
 ###########################################################################################################################################################################################
 
@@ -59,7 +59,7 @@ def runPhigaro():
     #Run with user-input files or with ncbi dataset files depending on which files are present
     if glob.glob('results/input/*f*a'): 
         print('Running Phigaro')
-        os.system('phigaro -f '+glob.glob('results/input/*f*a')[0]+' -o results/phigaro_output -p -e tsv gff html -d --not-open --save-fasta -m '+mode)
+        os.system('phigaro -f '+glob.glob('results/inputfile/*f*a')[0]+' -o results/phigaro_output -p -e tsv gff html -d --not-open --save-fasta -m '+mode)
     elif glob.glob('results/ncbi_dataset/data/all_sequences/assemblies.fna'):
         print('Running Phigaro')
         os.system('phigaro -f results/ncbi_dataset/data/all_sequences/assemblies.fna -o results/phigaro_output -p -e tsv gff html -d --not-open --save-fasta -m '+mode)
