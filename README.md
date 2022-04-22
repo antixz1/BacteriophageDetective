@@ -49,12 +49,12 @@ VOGTable.tsv is a tab delimited value file detailing the functional attributes f
 # Pipeline Usage
 ## Input
 ### Using NCBI Assemblies
-The pipeline can download and run assemblies automatically with user-provided accession IDs. The accessions.txt file in the 'accessions' folder should be edited to contain any number of accessions, separated by spaces, in order to run successfully. Bioproject accessions can also be used to download entire bioproject assemblies.
+The pipeline can download and run assemblies automatically with user-provided accession IDs. The accessions.txt file in the 'input' folder should be edited to contain any number of accessions, separated by spaces, in order to run successfully. Bioproject accessions can also be used to download entire bioproject assemblies.
 ### Using fasta/fna Files
-The pipeline also accepts fasta/fna files as opposed to NCBI assembly accessions. **The accessions.txt file must be empty for the pipeline to run with user-input fasta/fna files.** 
+The pipeline also accepts fasta/fna files as opposed to NCBI assembly accessions. **The accessions.txt file must be empty for the pipeline to run with user-input fasta/fna files and the files must be in the input directory.** 
 Files can be copied to the Docker container using
 ```
-sudo docker cp [file path] [container name]:/root/accessions
+sudo docker cp [file path] [container name]:/root/input
 ```
 
 ## Output
@@ -75,6 +75,11 @@ All output can be found in the results directory:
 ***Prophage_count.csv:*** Contains the number of prophages identified in each bacterial genome
 
 ## Running the Pipeline
+You must be in the root folder to run the pipeline.
+With the desired accessions or fasta file in the input directory, run
+```
+python3 main.py
+```
 
 ## Limitations
 - Phigaro tosses out contigs that are less than 20,000 bp long
