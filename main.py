@@ -78,12 +78,12 @@ def prophage_count():
     df = pd.read_csv(glob.glob('/root/results/phigaro_output/*.phigaro.tsv')[0], sep='\t', usecols = ['scaffold','vog'])
     outfile = open('results/Prophage_count.csv','w') # creating a new csv file
     outfile.write("WGS,#Prophages\n")
-    var = df.scaffold.unique()
+    var = df['scaffold'].tolist()
 
     mydict = {} #dictionary to count occurrences
     #loop over wordlist
     for i in var:
-        i = i[:9]
+        i = i[:11]
         #test if word is already in dict, if so add to count
         if i in mydict:
             mydict[i] = mydict[i] + 1
@@ -92,7 +92,7 @@ def prophage_count():
             mydict[i] = 1
 
     for k, v in mydict.items():
-        outfile.write(str(k)+'000000000,' +str(v) + "\n")
+        outfile.write(str(k)+',' +str(v) + "\n")
     outfile.close()
 
 ########################################################################################################################################################################
