@@ -46,7 +46,7 @@ def input_check():
             os.chdir(os.path.expanduser("~"))
             os.system('cp input/*f*a results/inputfile/')
         else:
-            print('Error: User input not found. Please palce desired accessions in "accessions.txt" or place a fasta/fna file in the "input" directory.')
+            print('Error: User input not found. Please place desired accessions in "accessions.txt" or place a fasta/fna file in the "input" directory.')
          
 ###########################################################################################################################################################################################
 
