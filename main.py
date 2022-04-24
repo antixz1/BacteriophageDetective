@@ -70,7 +70,7 @@ def runPhigaro():
 def prophage_count():
     df = pd.read_csv(glob.glob('/root/results/phigaro_output/*.phigaro.tsv')[0], sep='\t', usecols = ['scaffold','vog'])
     outfile = open('results/Prophage_count.csv','w') # creating a new csv file
-    outfile.write("WGS,#Prophages\n")
+    outfile.write("Accession,#Prophages\n")
     var = df['scaffold'].tolist()
 
     mydict = {} #dictionary to count occurrences
@@ -142,6 +142,7 @@ def VOG_annotator(infile1, infile2):
         Final_dict[key] = Final_dict_values
 
     with open('results/VOGAnnotations.tsv','w') as out:
+        out.write('Accession\tAnnotations')
         for key, value in Final_dict.items():
             out.write(key + "\t")
             for vog in value:
