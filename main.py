@@ -117,20 +117,20 @@ def align_prophage():
 
 ###########################################################################################################################################################################################
 #Add VOG annotation (from database) to pVOGs found by Phigaro
-def VOG_annotator(infile1, infile2):
+def VOG_annotator(infile1, infile2): #infile1 is the VOG table, infile2 is the .tsv output from Phigaro
     Final_dict = {}
-    with open(infile1, mode ='r') as inp:
+    with open(infile1, mode ='r') as inp: 
         reader = csv.reader(inp, delimiter = "\t")
-        VOG_dict = {rows[0]:rows[6] for rows in reader}
+        VOG_dict = {rows[0]:rows[6] for rows in reader} #read VOG table into Dictionary
 
     with open(infile2, mode = 'r') as inp:
         reader = csv.reader(inp, delimiter = "\t")
         Phigaro_dict = {rows[0]:rows[5] for rows in reader}
         for key, value in Phigaro_dict.items():
             value = list(value.split(", "))
-            Phigaro_dict[key] = value
+            Phigaro_dict[key] = value #read .tsv output from Phigaro into Dictionary
 
-    del Phigaro_dict["scaffold"]
+    del Phigaro_dict["scaffold"] #Deletion of key for readability of the output
 
     for key, value in Phigaro_dict.items():
         Final_dict_values = list()
@@ -139,9 +139,9 @@ def VOG_annotator(infile1, infile2):
                 Final_dict_values.append(vog + " not annotated")
             else:
                 Final_dict_values.append( vog + ": " + VOG_dict[vog])
-        Final_dict[key] = Final_dict_values
+        Final_dict[key] = Final_dict_values #Add the VOGs and their respective annotations to Dictionary with Accession Numbers
 
-    with open('results/VOGAnnotations.tsv','w') as out:
+    with open('results/VOGAnnotations.tsv','w') as out: #Output the Dictionary into a file titled VOGAnnotations.tsv located within the results folder
         out.write('Accession\tAnnotations')
         for key, value in Final_dict.items():
             out.write(key + "\t")
