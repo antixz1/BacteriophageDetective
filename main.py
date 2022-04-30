@@ -131,7 +131,18 @@ def VOG_annotator(infile1, infile2): #infile1 is the VOG table, infile2 is the .
             Phigaro_dict[key] = value #read .tsv output from Phigaro into Dictionary
 
     del Phigaro_dict["scaffold"] #Deletion of key for readability of the output
-
+    
+    #Count each VOG instance
+    vogs={}
+    for k,v in Phigaro_dict.items():
+        for vog in v:
+            if vog in vogs:
+                vogs[vog]+=1
+            else:
+                vogs[vog]=1
+    sorted_vogs = dict(sorted(vogs.items(),key=lambda x:x[1],reverse=True))
+    
+    #Add annotations from VOG database to identified prophage VOGs
     for key, value in Phigaro_dict.items():
         Final_dict_values = list()
         for vog in value:
@@ -148,6 +159,12 @@ def VOG_annotator(infile1, infile2): #infile1 is the VOG table, infile2 is the .
             for vog in value:
                 out.write(vog + "\t")
             out.write("\n")
+      
+    #Write VOG count dictionary to VOGCount.tsv     
+    with open('results/VOGCount.tsv','w') as out2:
+        out2.write('VOG\tCount')
+        for key,value in sorted_vogs.items():
+            out2.write(key+"\t"+value+"\n")
 
 ###########################################################################################################################################################################################
 
