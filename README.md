@@ -85,4 +85,4 @@ python3 main.py
 
 ## Limitations
 - Phigaro tosses out contigs that are less than 20,000 bp long
-- The VOG annotation database is a work in progress and may not provide annotations for all pVOGs found by Phigaro
+- The VOG annotation database is a work in progress and may not be up to date
