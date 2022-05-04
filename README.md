@@ -1,7 +1,7 @@
 # ProphageDetective
 
 # Introduction
-This is a Linux-based python wrapper for a pipeline that takes in a collection of bacterial genomes to identify any prophages. The prophages are then annotated and analyzed.
+This is a Linux-based Python3 wrapper for a pipeline that takes in a collection of bacterial genomes to identify any prophages. The prophages are then annotated and analyzed.
 
 ## What are Phages?
 Phages are viruses that infect Bacteria and Archaea. Phages can survive by integrating into the genome of their bacterial host throughout the lytic or lysogenic cycles. The majority of microorganisms carry phages. In our bodies, there are more phages than human or bacterial cells combined. Prophages follow the lysogenic path, integrating their DNA within bacterial DNA in a dormant state.
@@ -11,7 +11,7 @@ Phages are viruses that infect Bacteria and Archaea. Phages can survive by integ
 ## Docker
 Docker is a free and open platform for developing, deploying, and running software. Docker isolates your applications from your infrastructure, allowing you to deliver software quickly. On this platform, you can manage your infrastructure the same way you manage your applications. Docker lets you package and run an application within a container, which is a loosely isolated environment.
 
-This Docker container contains all required dependencies for this pipeline, as well as the pipeline script (main.py). 
+This Docker image contains all required dependencies for this pipeline, as well as the pipeline script (main.py). 
 
 To build the docker image, first clone the repository using
 ```
