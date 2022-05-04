@@ -70,7 +70,9 @@ All output can be found in the results directory:
 
 ***bpalign.csv:*** Contains BLASTn results determining prophage similarity among different scaffolds
 
-***VOGAnnotations.tsv:*** Contains annotated VOGs by scaffold
+***VOGAnnotations.tsv:*** Contains annotated VOGs by accession
+
+***VOGCount.tsv:*** Contains the total count for each unique VOG within all annotated prophages
 
 ***Prophage_count.csv:*** Contains the number of prophages identified in each bacterial genome
 
