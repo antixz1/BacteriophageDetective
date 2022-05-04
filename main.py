@@ -162,9 +162,9 @@ def VOG_annotator(infile1, infile2): #infile1 is the VOG table, infile2 is the .
       
     #Write VOG count dictionary to VOGCount.tsv     
     with open('results/VOGCount.tsv','w') as out2:
-        out2.write('VOG\tCount')
+        out2.write('VOG\tCount\n')
         for key,value in sorted_vogs.items():
-            out2.write(key+"\t"+value+"\n")
+            out2.write(key+"\t"+str(value)+"\n")
 
 ###########################################################################################################################################################################################
 
